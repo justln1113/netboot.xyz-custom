@@ -9,7 +9,7 @@ set space:hex 20:20
 clear custom_choice
 menu This is a Test Menu
 item --gap --             ------------------------- Operating systems ------------------------------
-item openSUSE ${space} Boot openSUSE from iSCSI
+item openSUSE Boot openSUSE from iSCSI
 
 item
 item --key x custom_exit         Exit iPXE and continue BIOS boot
@@ -28,7 +28,7 @@ exit
 
 :openSUSE
 echo Booting openSUSE from iSCSI for iqn.2019-09.com.synology:justlnServer.openSUSE
-set root-path iscsi:192.168.2.3:::1:iqn.2019-09.com.synology:justlnServer.openSUSE
+set root-path iscsi:192.168.2.3:::0:iqn.2019-09.com.synology:justlnServer.openSUSE
 set keep-san 1
 sanboot ${root-path} ||
 goto start
