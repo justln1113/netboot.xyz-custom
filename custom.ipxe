@@ -3,25 +3,32 @@
 ### netboot.xyz-custom menu
 ###
 
-###################### MAIN MENU ####################################
+
 set space:hex 20:20
-:start
+:custom
+clear custom_choice
+menu This is a Test Menu
 item --gap --             ------------------------- Operating systems ------------------------------
-item --key u openSUSE     Boot openSUSE from iSCSI
+item openSUSE ${space} Boot openSUSE from iSCSI
 
 item
 item --key x custom_exit         Exit iPXE and continue BIOS boot
 
-goto ${selected}
+choose custom_choice || goto custom_exit
+echo ${cls}
+goto ${custom_choice}
+goto custom_exit
 
 :custom_exit
-exit 0
+chain utils.ipxe
+exit
 
 ############ MAIN MENU ITEMS ############
 
+
 :openSUSE
-echo Booting openSUSE from iSCSI for iqn.2019-09.com.synology:justln1113server.openSUSE
-set root-path iscsi:192.168.2.3:::1:iqn.2019-09.com.synology:justln1113server.openSUSE
+echo Booting openSUSE from iSCSI for iqn.2019-09.com.synology:justlnServer.openSUSE
+set root-path iscsi:192.168.2.3:::1:iqn.2019-09.com.synology:justlnServer.openSUSE
 set keep-san 1
-sanboot ${root-path} || goto failed
+sanboot ${root-path} ||
 goto start
