@@ -3,12 +3,10 @@
 ### netboot.xyz-custom menu
 ###
 
+###################### MAIN MENU ####################################
+set space:hex 20:20
 :start
 item --gap --             ------------------------- Operating systems ------------------------------
-item --key w windows      Boot Windows from iSCSI
-item --key u ubuntu       Boot Ubuntu from iSCSI
-item --key u centos       Boot CentOS from iSCSI
-item --key u esxi         Boot ESXi from iSCSI
 item --key u openSUSE     Boot openSUSE from iSCSI
 
 item
@@ -16,42 +14,10 @@ item --key x custom_exit         Exit iPXE and continue BIOS boot
 
 goto ${selected}
 
-sleep 10
-goto custom_exit
-
 :custom_exit
 exit 0
 
 ############ MAIN MENU ITEMS ############
-
-:windows
-echo Booting Windows from iSCSI for ${initiator-iqn}
-set netX/gateway ${iscsi-server}
-set root-path ${base-iscsi}:${hostname}.Windows
-set keep-san 1
-sanboot ${root-path} || goto failed
-goto start
-
-:ubuntu
-echo Booting Ubuntu from iSCSI for ${initiator-iqn}
-set root-path ${base-iscsi}:${hostname}.Ubuntu
-set keep-san 1
-sanboot ${root-path} || goto failed
-goto start
-
-:centos
-echo Booting CentOS from iSCSI for ${initiator-iqn}
-set root-path ${base-iscsi}:${hostname}.CentOS
-set keep-san 1
-sanboot ${root-path} || goto failed
-goto start
-
-:esxi
-echo Booting ESXi from iSCSI for iqn.2000-01.com.synology:ipxe.ESXI
-set root-path iscsi:10.10.10.250:::1:iqn.2000-01.com.synology:ipxe.ESXI
-set keep-san 1
-sanboot ${root-path} || goto failed
-goto start
 
 :openSUSE
 echo Booting openSUSE from iSCSI for iqn.2019-09.com.synology:justln1113server.openSUSE
