@@ -29,8 +29,6 @@ exit
 :openSUSE
 echo Booting openSUSE from iSCSI for iqn.2019-09.com.synology:justlnServer.openSUSE
 set root-path iscsi:192.168.2.3:::0:iqn.2019-09.com.synology:justlnServer.openSUSE
-set username justln1113
-set password OTIxMTEz23564458
 set keep-san 1
 sanboot ${root-path} ||
 goto start
